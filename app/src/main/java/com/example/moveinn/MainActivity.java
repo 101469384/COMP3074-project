@@ -18,6 +18,9 @@ public class MainActivity extends AppCompatActivity {
     private Button btnLogin;
     private TextView tvCreateAccount;
 
+
+    private Button btnOpenCompare;
+
     private SharedPreferences sharedPreferences;
     private static final String PREFS_NAME = "MoveInPrefs";
     private static final String KEY_EMAIL = "email";
@@ -32,8 +35,10 @@ public class MainActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         tvCreateAccount = findViewById(R.id.tvCreateAccount);
+        btnOpenCompare = findViewById(R.id.btnOpenCompare);
 
         sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +51,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        btnOpenCompare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CompareListingsActivity.class);
                 startActivity(intent);
             }
         });
@@ -70,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (email.equals(savedEmail) && password.equals(savedPassword)) {
             Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
+
+            // This still goes to HomeActivity (her flow)
             Intent intent = new Intent(MainActivity.this, HomeActivity.class);
             startActivity(intent);
         } else {
@@ -77,3 +93,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
+

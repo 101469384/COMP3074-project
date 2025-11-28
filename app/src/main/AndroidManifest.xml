@@ -12,11 +12,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoveInn">
 
+
+        <activity
+            android:name=".CompareListingsActivity"
+            android:exported="false" />
+
+
+        <activity
+            android:name=".ListingDetailsActivity"
+            android:exported="false" />
+
+
         <activity
             android:name=".HomeActivity" />
 
+
         <activity
             android:name=".RegisterActivity" />
+
 
         <activity
             android:name=".MainActivity"
@@ -27,8 +40,6 @@
             </intent-filter>
         </activity>
 
-
     </application>
-
 
 </manifest>
