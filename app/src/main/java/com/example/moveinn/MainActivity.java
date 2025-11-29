@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         tvCreateAccount = findViewById(R.id.tvCreateAccount);
+        TextView tvGuestLogin = findViewById(R.id.tvGuestLogin);
         btnOpenCompare = findViewById(R.id.btnOpenCompare);
 
         sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
@@ -51,6 +52,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tvGuestLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                intent.putExtra("USER_NAME", "Guest");
+                intent.putExtra("USER_TYPE", "Guest");
                 startActivity(intent);
             }
         });
@@ -74,23 +85,36 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        // 1. Check MockDatabase first
+        for (User user : MockDatabase.getAllUsers()) {
+            if (user.getEmail().equalsIgnoreCase(email) && user.getPassword().equals(password)) {
+                Toast.makeText(this, "Login successful (Test User)", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                intent.putExtra("USER_NAME", user.getName());
+                intent.putExtra("USER_TYPE", user.getAccountType());
+                startActivity(intent);
+                return;
+            }
+        }
+
+        // 2. Fallback to SharedPreferences (Last registered user)
         String savedEmail = sharedPreferences.getString(KEY_EMAIL, null);
         String savedPassword = sharedPreferences.getString(KEY_PASSWORD, null);
+        String savedName = sharedPreferences.getString("name", "User"); // Assuming "name" key exists from RegisterActivity
+        String savedType = sharedPreferences.getString("account_type", "Unknown");
 
-        if (savedEmail == null || savedPassword == null) {
-            Toast.makeText(this, "No user found. Please create an account.", Toast.LENGTH_SHORT).show();
-            return;
+        if (savedEmail != null && savedPassword != null) {
+            if (email.equals(savedEmail) && password.equals(savedPassword)) {
+                Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                intent.putExtra("USER_NAME", savedName);
+                intent.putExtra("USER_TYPE", savedType);
+                startActivity(intent);
+                return;
+            }
         }
 
-        if (email.equals(savedEmail) && password.equals(savedPassword)) {
-            Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
-
-            // This still goes to HomeActivity (her flow)
-            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-            startActivity(intent);
-        } else {
-            Toast.makeText(this, "Invalid credentials", Toast.LENGTH_SHORT).show();
-        }
+        Toast.makeText(this, "Invalid credentials", Toast.LENGTH_SHORT).show();
     }
 }
 

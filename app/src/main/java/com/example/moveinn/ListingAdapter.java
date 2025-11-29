@@ -27,6 +27,12 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ListingV
     private OnRemoveListingListener removeListener;
 
     public ListingAdapter(List<Listing> items,
+                          OnViewListingListener viewListener) {
+        this.items = items;
+        this.viewListener = viewListener;
+    }
+
+    public ListingAdapter(List<Listing> items,
                           OnViewListingListener viewListener,
                           OnRemoveListingListener removeListener) {
         this.items = items;
@@ -67,11 +73,26 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ListingV
             }
         });
 
-        holder.btnRemove.setOnClickListener(new View.OnClickListener() {
+        // Comparison Logic
+        // Remove listener to avoid triggering during state change
+        holder.cbCompare.setOnCheckedChangeListener(null);
+        holder.cbCompare.setChecked(MockDatabase.isInComparison(listing));
+
+        holder.cbCompare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (removeListener != null) {
-                    removeListener.onRemoveListing(listing);
+                boolean isChecked = holder.cbCompare.isChecked();
+                if (isChecked) {
+                    boolean success = MockDatabase.addToCompare(listing);
+                    if (!success) {
+                        holder.cbCompare.setChecked(false); // Revert
+                        android.widget.Toast.makeText(v.getContext(), "You can only compare up to 3 listings.", android.widget.Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    MockDatabase.removeFromCompare(listing);
+                    if (removeListener != null) {
+                        removeListener.onRemoveListing(listing);
+                    }
                 }
             }
         });
@@ -92,7 +113,7 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ListingV
         TextView txtInsurance;
         TextView txtAvailability;
         Button btnViewDetails;
-        Button btnRemove;
+        android.widget.CheckBox cbCompare;
 
         ListingViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -104,8 +125,7 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ListingV
             txtInsurance = itemView.findViewById(R.id.txtInsurance);
             txtAvailability = itemView.findViewById(R.id.txtAvailability);
             btnViewDetails = itemView.findViewById(R.id.btnViewDetails);
-            btnRemove = itemView.findViewById(R.id.btnRemove);
+            cbCompare = itemView.findViewById(R.id.cbCompare);
         }
     }
 }
-

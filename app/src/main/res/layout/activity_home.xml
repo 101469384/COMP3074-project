@@ -19,15 +19,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="32dp" />
 
-    <TextView
-        android:id="@+id/tvHomeInfo"
-        android:layout_width="0dp"
+    <Button
+        android:id="@+id/btnCreateListing"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Here customers will be able to browse trucks, equipment rentals, and manage their bookings. (Placeholder screen for prototype.)"
-        android:textSize="16sp"
+        android:text="Create Listing"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/tvWelcome"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerHomeListings"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/btnCreateListing"
+        app:layout_constraintBottom_toTopOf="@id/btnGoToCompare"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btnGoToCompare"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Go to Compare (0/3)"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

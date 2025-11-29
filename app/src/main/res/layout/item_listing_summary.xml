@@ -135,11 +135,11 @@
                 android:backgroundTint="#4CAF50"
                 android:textColor="#FFFFFF" />
 
-            <Button
-                android:id="@+id/btnRemove"
+            <CheckBox
+                android:id="@+id/cbCompare"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Remove"
+                android:text="Compare"
                 android:layout_marginStart="8dp" />
         </LinearLayout>
 
