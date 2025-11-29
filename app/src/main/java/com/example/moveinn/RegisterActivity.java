@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -18,11 +20,17 @@ public class RegisterActivity extends AppCompatActivity {
     private Button btnRegister;
     private TextView tvGoToLogin;
 
+    private RadioGroup regAccountType;
+    private RadioButton CustomerAccount, VendorAccount;
+
     private SharedPreferences sharedPreferences;
     private static final String PREFS_NAME = "MoveInPrefs";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_NAME = "name";
+    private static final String KEY_ACCOUNT_TYPE= "account_type";
+
+    private TextView VendorNotice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +42,24 @@ public class RegisterActivity extends AppCompatActivity {
         etRegisterPassword = findViewById(R.id.etRegisterPassword);
         btnRegister = findViewById(R.id.btnRegister);
         tvGoToLogin = findViewById(R.id.tvGoToLogin);
+
+        regAccountType= findViewById(R.id.regAccountType);
+        CustomerAccount= findViewById(R.id.CustomerAccount);
+        VendorAccount= findViewById(R.id.VendorAccount);
+
+        VendorNotice = findViewById(R.id.VendorNotice);
+
+        regAccountType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId){
+                if(checkedId == VendorAccount.getId()){
+                    VendorNotice.setVisibility(View.VISIBLE);
+                    } else{
+                        VendorNotice.setVisibility(View.GONE);
+                    }
+                }
+            }
+        );
 
         sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
@@ -59,6 +85,14 @@ public class RegisterActivity extends AppCompatActivity {
         String email = etRegisterEmail.getText().toString().trim();
         String password = etRegisterPassword.getText().toString().trim();
 
+        int selectedId= regAccountType.getCheckedRadioButtonId();
+        String accountType= "";
+        if(selectedId == CustomerAccount.getId()){
+            accountType= "I need moving services";
+        } else if (selectedId == VendorAccount.getId()){
+            accountType= "I am truck owner/ vendor";
+        }
+
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
             return;
@@ -68,6 +102,7 @@ public class RegisterActivity extends AppCompatActivity {
         editor.putString(KEY_NAME, name);
         editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_PASSWORD, password);
+        editor.putString(KEY_ACCOUNT_TYPE, accountType);
         editor.apply();
 
         Toast.makeText(this, "Account created. You can now login.", Toast.LENGTH_SHORT).show();

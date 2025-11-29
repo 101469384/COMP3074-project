@@ -57,13 +57,51 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp" />
+    
+    <RadioGroup
+        android:id="@+id/regAccountType"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/etRegisterPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp">
+
+            <RadioButton
+                android:id="@+id/CustomerAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I need moving services"
+                android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/VendorAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I am truck owner/ vendor"/>
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/VendorNotice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="As a vendor, you'll need to verify your identity and upload vehicle documentation after registration."
+        android:visibility="gone"
+        android:textSize="14sp"
+        android:paddingTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/regAccountType"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Create Account"
-        app:layout_constraintTop_toBottomOf="@id/etRegisterPassword"
+        app:layout_constraintTop_toBottomOf="@id/VendorNotice"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="24dp" />
