@@ -21,11 +21,9 @@ public class CompareListingsActivity extends AppCompatActivity {
     private LinearLayout bottomBar;
     private LinearLayout emptyState;
     private LinearLayout contentState;
-    private Button btnAddMore;
-    private Button btnBrowseEmpty;
     private TextView btnBack;   // 👈 back arrow in header
 
-    private ArrayList<Listing> listings = new ArrayList<>();
+    private java.util.List<Listing> listings;
     private int nextId = 3;
 
     @Override
@@ -37,8 +35,6 @@ public class CompareListingsActivity extends AppCompatActivity {
         bottomBar = findViewById(R.id.bottomBar);
         emptyState = findViewById(R.id.emptyState);
         contentState = findViewById(R.id.contentState);
-        btnAddMore = findViewById(R.id.btnAddMore);
-        btnBrowseEmpty = findViewById(R.id.btnBrowseEmpty);
         btnBack = findViewById(R.id.btnBack);
 
         recyclerListings.setLayoutManager(new LinearLayoutManager(this));
@@ -51,34 +47,8 @@ public class CompareListingsActivity extends AppCompatActivity {
             }
         });
 
-        // Sample listings
-        listings.add(new Listing(
-                "1",
-                "Downtown Apartment with Storage",
-                null,
-                80.0,
-                4.7,
-                23,
-                true,
-                true,
-                "Toronto, ON",
-                "John Doe",
-                true
-        ));
-
-        listings.add(new Listing(
-                "2",
-                "Garage Space Near Campus",
-                null,
-                50.0,
-                4.2,
-                10,
-                false,
-                false,
-                "Scarborough, ON",
-                "Mary Smith",
-                false
-        ));
+        // Use listings from MockDatabase Comparison List
+        listings = MockDatabase.getComparisonList();
 
         adapter = new ListingAdapter(
                 listings,
@@ -95,6 +65,7 @@ public class CompareListingsActivity extends AppCompatActivity {
                         intent.putExtra("verified", listing.isVerified());
                         intent.putExtra("location", listing.getLocation());
                         intent.putExtra("vendor", listing.getVendor());
+                        intent.putExtra("USER_TYPE", getIntent().getStringExtra("USER_TYPE"));
                         startActivity(intent);
                     }
                 },
@@ -110,62 +81,25 @@ public class CompareListingsActivity extends AppCompatActivity {
 
         recyclerListings.setAdapter(adapter);
 
+        checkEmptyState();
+
+        checkEmptyState();
+
+        Button btnAddMore = findViewById(R.id.btnAddMore);
         btnAddMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (listings.size() >= 3) {
-                    Toast.makeText(
-                            CompareListingsActivity.this,
-                            "You can only compare up to 3 listings.",
-                            Toast.LENGTH_SHORT
-                    ).show();
-                    return;
-                }
-
-                int displayNumber = listings.size() + 1;
-                Listing newListing = new Listing(
-                        String.valueOf(nextId++),
-                        "Extra Listing " + displayNumber,
-                        null,
-                        70.0,
-                        4.5,
-                        0,
-                        true,
-                        false,
-                        "Toronto, ON",
-                        "New Vendor",
-                        true
-                );
-
-                listings.add(newListing);
-                adapter.notifyItemInserted(listings.size() - 1);
-                checkEmptyState();
+                finish(); // Go back to Home to add more
             }
         });
 
+        Button btnBrowseEmpty = findViewById(R.id.btnBrowseEmpty);
         btnBrowseEmpty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Listing newListing = new Listing(
-                        String.valueOf(nextId++),
-                        "New Listing",
-                        null,
-                        60.0,
-                        4.0,
-                        0,
-                        true,
-                        false,
-                        "Toronto, ON",
-                        "New Vendor",
-                        true
-                );
-                listings.add(newListing);
-                adapter.notifyDataSetChanged();
-                checkEmptyState();
+                finish(); // Go back to Home
             }
         });
-
-        checkEmptyState();
     }
 
     private void checkEmptyState() {

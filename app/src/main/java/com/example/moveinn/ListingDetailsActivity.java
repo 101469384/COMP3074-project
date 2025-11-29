@@ -23,6 +23,7 @@ public class ListingDetailsActivity extends AppCompatActivity {
         TextView txtLocation = findViewById(R.id.txtDetailLocation);
         TextView txtVendor = findViewById(R.id.txtDetailVendor);
         Button btnClose = findViewById(R.id.btnCloseDetails);
+        Button btnBook = findViewById(R.id.btnBook);
 
         // Get data from Intent
         String title = getIntent().getStringExtra("title");
@@ -34,6 +35,7 @@ public class ListingDetailsActivity extends AppCompatActivity {
         boolean verified = getIntent().getBooleanExtra("verified", false);
         String location = getIntent().getStringExtra("location");
         String vendor = getIntent().getStringExtra("vendor");
+        String userType = getIntent().getStringExtra("USER_TYPE");
 
         // Set values
         txtTitle.setText(title);
@@ -44,6 +46,17 @@ public class ListingDetailsActivity extends AppCompatActivity {
         txtVerified.setText(verified ? "Verified" : "Not verified");
         txtLocation.setText("Location: " + location);
         txtVendor.setText("Vendor: " + vendor);
+
+        btnBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ("Guest".equals(userType)) {
+                    android.widget.Toast.makeText(ListingDetailsActivity.this, "Please login to book", android.widget.Toast.LENGTH_SHORT).show();
+                } else {
+                    android.widget.Toast.makeText(ListingDetailsActivity.this, "Booking Request Sent!", android.widget.Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override

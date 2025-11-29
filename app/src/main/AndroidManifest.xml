@@ -45,6 +45,10 @@
             </activity>
 
 
+        <activity
+            android:name=".CreateListingActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
