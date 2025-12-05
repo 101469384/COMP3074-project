@@ -1,112 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="#F5F5F5"
+    android:padding="16dp"
+    tools:context=".ListingDetailsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="vertical">
 
 
-        <TextView
-            android:id="@+id/txtDetailTitle"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Listing Title"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#111827"
-            android:layout_marginBottom="8dp" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:id="@+id/btnCloseDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="← Back"
+                android:textSize="14sp"
+                android:textColor="#7A4EC9"
+                android:padding="4dp" />
+        </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/txtDetailPrice"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="$80 / day"
-            android:textSize="16sp"
-            android:textColor="#4CAF50"
-            android:layout_marginBottom="8dp" />
+            android:orientation="vertical"
+            android:background="@drawable/bg_card_rounded"
+            android:padding="16dp"
+            android:layout_marginBottom="24dp">
 
 
-        <TextView
-            android:id="@+id/txtDetailRating"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Rating: 4.7 (23 reviews)"
-            android:textSize="14sp"
-            android:textColor="#374151"
-            android:layout_marginBottom="8dp" />
+            <TextView
+                android:id="@+id/txtDetailTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Downtown Apartment with Storage"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#222222"
+                android:paddingBottom="4dp" />
 
 
-        <TextView
-            android:id="@+id/txtDetailAvailability"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Available"
-            android:textSize="14sp"
-            android:textColor="#374151"
-            android:layout_marginBottom="4dp" />
+            <TextView
+                android:id="@+id/txtDetailPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="$80.00 / day"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#4CAF50"
+                android:paddingBottom="8dp" />
 
 
-        <TextView
-            android:id="@+id/txtDetailInsurance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Insurance included"
-            android:textSize="14sp"
-            android:textColor="#374151"
-            android:layout_marginBottom="4dp" />
+            <TextView
+                android:id="@+id/txtDetailRating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rating: 4.7 (23 reviews)"
+                android:textSize="14sp"
+                android:textColor="#555555"
+                android:paddingBottom="8dp" />
 
 
-        <TextView
-            android:id="@+id/txtDetailVerified"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Verified"
-            android:textSize="14sp"
-            android:textColor="#374151"
-            android:layout_marginBottom="8dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEEEEE"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="12dp" />
+
+            <TextView
+                android:id="@+id/txtDetailAvailability"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Available"
+                android:textSize="14sp"
+                android:textColor="#333333"
+                android:paddingBottom="4dp" />
 
 
-        <TextView
-            android:id="@+id/txtDetailLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Location: Toronto, ON"
-            android:textSize="14sp"
-            android:textColor="#374151"
-            android:layout_marginBottom="4dp" />
+            <TextView
+                android:id="@+id/txtDetailInsurance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Insurance included"
+                android:textSize="14sp"
+                android:textColor="#333333"
+                android:paddingBottom="4dp" />
 
 
-        <TextView
-            android:id="@+id/txtDetailVendor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Vendor: John Doe"
-            android:textSize="14sp"
-            android:textColor="#374151"
-            android:layout_marginBottom="16dp" />
+            <TextView
+                android:id="@+id/txtDetailVerified"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Verified"
+                android:textSize="14sp"
+                android:textColor="#333333"
+                android:paddingBottom="8dp" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEEEEE"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="12dp" />
+
+
+            <TextView
+                android:id="@+id/txtDetailLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Location: Toronto, ON"
+                android:textSize="14sp"
+                android:textColor="#555555"
+                android:paddingBottom="4dp" />
+
+
+            <TextView
+                android:id="@+id/txtDetailVendor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vendor: John Doe"
+                android:textSize="14sp"
+                android:textColor="#555555" />
+
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/btnBook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Book Now"
-            android:backgroundTint="#6A4CBD"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="8dp"/>
-
-        <Button
-            android:id="@+id/btnCloseDetails"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Close"
-            android:backgroundTint="#4CAF50"
-            android:textColor="#FFFFFF" />
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/bg_primary_button"
+            android:padding="12dp" />
 
     </LinearLayout>
 </ScrollView>

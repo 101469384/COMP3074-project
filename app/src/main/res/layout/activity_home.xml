@@ -7,6 +7,23 @@
     android:padding="24dp"
     tools:context=".HomeActivity">
 
+
+    <TextView
+        android:id="@+id/tvLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log out"
+        android:textSize="14sp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/bg_primary_button"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="6dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
     <TextView
         android:id="@+id/tvWelcome"
         android:layout_width="wrap_content"
@@ -14,10 +31,10 @@
         android:text="Welcome to MoveIn"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvLogout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp" />
+        android:layout_marginTop="16dp" />
 
     <Button
         android:id="@+id/btnCreateListing"
@@ -30,6 +47,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp" />
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerHomeListings"
         android:layout_width="0dp"
@@ -39,15 +57,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:paddingBottom="200dp"
+        android:clipToPadding="false"
+        android:scrollbars="vertical" />
 
     <Button
         android:id="@+id/btnGoToCompare"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Go to Compare (0/3)"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnViewCart"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <Button
+        android:id="@+id/btnViewCart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Cart"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

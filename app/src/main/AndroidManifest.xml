@@ -12,38 +12,42 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoveInn">
 
-
         <activity
             android:name=".CompareListingsActivity"
             android:exported="false" />
-
 
         <activity
             android:name=".ListingDetailsActivity"
             android:exported="false" />
 
+        <!-- 🛒 Cart screen -->
+        <activity
+            android:name=".CartActivity"
+            android:exported="false" />
+
+        <!-- ✅ New Checkout screen -->
+        <activity
+            android:name=".CheckoutActivity"
+            android:exported="false" />
 
         <activity
             android:name=".HomeActivity" />
 
-
         <activity
             android:name=".RegisterActivity" />
 
-
         <activity
             android:name=".MainActivity"
-            android:exported="false"/>
+            android:exported="false" />
 
-            <activity
-                android:name=".AuthActivity"
-                android:exported="true">
-                <intent-filter>
-                    <action android:name="android.intent.action.MAIN" />
-                    <category android:name="android.intent.category.LAUNCHER" />
-                </intent-filter>
-            </activity>
-
+        <activity
+            android:name=".AuthActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".CreateListingActivity"

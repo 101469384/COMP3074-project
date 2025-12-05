@@ -1,9 +1,11 @@
 package com.example.moveinn;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,10 +24,13 @@ public class ListingDetailsActivity extends AppCompatActivity {
         TextView txtVerified = findViewById(R.id.txtDetailVerified);
         TextView txtLocation = findViewById(R.id.txtDetailLocation);
         TextView txtVendor = findViewById(R.id.txtDetailVendor);
-        Button btnClose = findViewById(R.id.btnCloseDetails);
+
+
+        TextView btnBack = findViewById(R.id.btnCloseDetails);
+
         Button btnBook = findViewById(R.id.btnBook);
 
-        // Get data from Intent
+
         String title = getIntent().getStringExtra("title");
         double price = getIntent().getDoubleExtra("price", 0);
         double rating = getIntent().getDoubleExtra("rating", 0);
@@ -37,7 +42,9 @@ public class ListingDetailsActivity extends AppCompatActivity {
         String vendor = getIntent().getStringExtra("vendor");
         String userType = getIntent().getStringExtra("USER_TYPE");
 
-        // Set values
+        final boolean isGuest = (userType == null) || userType.equalsIgnoreCase("guest");
+
+
         txtTitle.setText(title);
         txtPrice.setText("$" + price + " / day");
         txtRating.setText("Rating: " + rating + " (" + reviews + " reviews)");
@@ -47,23 +54,43 @@ public class ListingDetailsActivity extends AppCompatActivity {
         txtLocation.setText("Location: " + location);
         txtVendor.setText("Vendor: " + vendor);
 
-        btnBook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ("Guest".equals(userType)) {
-                    android.widget.Toast.makeText(ListingDetailsActivity.this, "Please login to book", android.widget.Toast.LENGTH_SHORT).show();
-                } else {
-                    android.widget.Toast.makeText(ListingDetailsActivity.this, "Booking Request Sent!", android.widget.Toast.LENGTH_SHORT).show();
-                }
+        if (isGuest) {
+            btnBook.setText("Login to book");
+            btnBook.setAlpha(0.7f);
+        }
+
+
+        btnBook.setOnClickListener(v -> {
+            if (isGuest) {
+                // Guest → send to login
+                Toast.makeText(
+                        ListingDetailsActivity.this,
+                        "Please login to book this listing.",
+                        Toast.LENGTH_SHORT
+                ).show();
+
+                Intent loginIntent = new Intent(ListingDetailsActivity.this, AuthActivity.class);
+                loginIntent.putExtra("FROM_BOOKING", true);
+                startActivity(loginIntent);
+                return;
             }
+
+
+            CartItem item = new CartItem(title, price, 1);
+            CartManager.addItem(item);
+
+            Toast.makeText(
+                    ListingDetailsActivity.this,
+                    "Added to cart",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            Intent intent = new Intent(ListingDetailsActivity.this, CartActivity.class);
+            intent.putExtra("USER_TYPE", userType);
+            startActivity(intent);
         });
 
-        btnClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish(); // close this screen
-            }
-        });
+
+        btnBack.setOnClickListener((View v) -> finish());
     }
 }
-

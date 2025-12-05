@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CompareListingsActivity extends AppCompatActivity {
 
@@ -21,10 +22,11 @@ public class CompareListingsActivity extends AppCompatActivity {
     private LinearLayout bottomBar;
     private LinearLayout emptyState;
     private LinearLayout contentState;
-    private TextView btnBack;   // 👈 back arrow in header
+    private TextView btnBack;
 
-    private java.util.List<Listing> listings;
-    private int nextId = 3;
+    private List<Listing> listings;
+    private String userType;
+    private boolean isGuest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,16 +41,53 @@ public class CompareListingsActivity extends AppCompatActivity {
 
         recyclerListings.setLayoutManager(new LinearLayoutManager(this));
 
-        // ✅ Back arrow: just close this activity and return to previous screen
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();  // goes back to MainActivity / HomeActivity, wherever you came from
-            }
-        });
 
-        // Use listings from MockDatabase Comparison List
-        listings = MockDatabase.getComparisonList();
+        userType = getIntent().getStringExtra("USER_TYPE");
+        isGuest = "Guest".equals(userType);
+
+        if (isGuest) {
+            Toast.makeText(
+                    this,
+                    "You’re browsing as a guest. You can view and compare listings, " +
+                            "but you must sign up or log in to add to cart or check out.",
+                    Toast.LENGTH_LONG
+            ).show();
+        }
+
+
+        listings = new ArrayList<>(MockDatabase.getComparisonList());
+
+
+        if (isGuest && listings.isEmpty()) {
+            listings.add(createDemoListing(
+                    "1",
+                    "Downtown Apartment with Storage",
+                    80.0,
+                    4.7,
+                    23,
+                    "Toronto, ON",
+                    "John Doe"
+            ));
+            listings.add(createDemoListing(
+                    "2",
+                    "Suburban Garage Space",
+                    45.0,
+                    4.3,
+                    15,
+                    "Mississauga, ON",
+                    "Mary Smith"
+            ));
+            listings.add(createDemoListing(
+                    "3",
+                    "Basement Storage Unit",
+                    55.0,
+                    4.5,
+                    10,
+                    "North York, ON",
+                    "Alex Johnson"
+            ));
+        }
+
 
         adapter = new ListingAdapter(
                 listings,
@@ -65,7 +104,7 @@ public class CompareListingsActivity extends AppCompatActivity {
                         intent.putExtra("verified", listing.isVerified());
                         intent.putExtra("location", listing.getLocation());
                         intent.putExtra("vendor", listing.getVendor());
-                        intent.putExtra("USER_TYPE", getIntent().getStringExtra("USER_TYPE"));
+                        intent.putExtra("USER_TYPE", userType);
                         startActivity(intent);
                     }
                 },
@@ -81,36 +120,66 @@ public class CompareListingsActivity extends AppCompatActivity {
 
         recyclerListings.setAdapter(adapter);
 
-        checkEmptyState();
+        // Back arrow in the header
+        btnBack.setOnClickListener(v -> finish());
 
-        checkEmptyState();
-
+        // Browse buttons
         Button btnAddMore = findViewById(R.id.btnAddMore);
-        btnAddMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish(); // Go back to Home to add more
-            }
-        });
-
         Button btnBrowseEmpty = findViewById(R.id.btnBrowseEmpty);
-        btnBrowseEmpty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish(); // Go back to Home
-            }
-        });
+
+        View.OnClickListener browseListener = v -> {
+            // Always go back to HomeActivity, keeping user type (Guest, Student, etc.)
+            Intent intent = new Intent(CompareListingsActivity.this, HomeActivity.class);
+            intent.putExtra("USER_TYPE", userType);
+            startActivity(intent);
+            finish();
+        };
+
+        btnAddMore.setOnClickListener(browseListener);
+        btnBrowseEmpty.setOnClickListener(browseListener);
+
+        checkEmptyState();
+    }
+
+
+    private Listing createDemoListing(String id,
+                                      String title,
+                                      double price,
+                                      double rating,
+                                      int reviews,
+                                      String location,
+                                      String vendor) {
+
+        return new Listing(
+                id,
+                title,
+                null,
+                price,
+                rating,
+                reviews,
+                true,
+                true,
+                location,
+                vendor,
+                true
+        );
     }
 
     private void checkEmptyState() {
-        if (listings.isEmpty()) {
+        if (listings == null || listings.isEmpty()) {
             emptyState.setVisibility(View.VISIBLE);
             contentState.setVisibility(View.GONE);
             bottomBar.setVisibility(View.GONE);
         } else {
             emptyState.setVisibility(View.GONE);
             contentState.setVisibility(View.VISIBLE);
-            bottomBar.setVisibility(View.VISIBLE);
+
+
+            if (isGuest) {
+                bottomBar.setVisibility(View.GONE);
+            } else {
+                bottomBar.setVisibility(View.VISIBLE);
+            }
         }
     }
 }

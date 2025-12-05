@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:padding="16dp"
+    tools:context=".CartActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:id="@+id/btnBackCart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="← Back"
+                android:textSize="14sp"
+                android:textColor="#7A4EC9"
+                android:padding="4dp" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tvCartTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Cart"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#222222"
+            android:paddingBottom="4dp" />
+
+        <TextView
+            android:id="@+id/tvCartSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Review your selected items before checkout."
+            android:textSize="15sp"
+            android:textColor="#444444"
+            android:paddingBottom="4dp" />
+
+
+        <TextView
+            android:id="@+id/tvCartItemsList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:background="@drawable/bg_card_rounded"
+            android:padding="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp" />
+
+
+        <LinearLayout
+            android:id="@+id/layoutCartItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_card_rounded"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:id="@+id/tvListingTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Listing title"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="#222222" />
+
+            <TextView
+                android:id="@+id/tvPricePerDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="$80.00 / day"
+                android:textSize="14sp"
+                android:textColor="#555555"
+                android:paddingTop="4dp" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEEEEE"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+
+                <TextView
+                    android:id="@+id/btnMinus"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/rounded_button_minus"
+                    android:text="-"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+
+                <TextView
+                    android:id="@+id/tvQuantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#222222"
+                    android:layout_marginHorizontal="20dp" />
+
+
+                <TextView
+                    android:id="@+id/btnPlus"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/rounded_button_plus"
+                    android:text="+"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="end">
+
+                    <TextView
+                        android:id="@+id/tvItemTotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$80.00"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#222222"
+                        android:layout_marginStart="16dp" />
+                </LinearLayout>
+
+
+                <ImageButton
+                    android:id="@+id/btnRemove"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@android:drawable/ic_menu_delete"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="Remove" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:id="@+id/tvSubtotalLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Subtotal"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="#333333" />
+
+            <TextView
+                android:id="@+id/tvSubtotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$80.00"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#222222" />
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btnCheckout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Proceed to Checkout"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/bg_primary_button"
+            android:padding="12dp" />
+
+    </LinearLayout>
+
+</ScrollView>
