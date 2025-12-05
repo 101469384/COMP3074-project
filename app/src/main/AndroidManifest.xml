@@ -20,12 +20,12 @@
             android:name=".ListingDetailsActivity"
             android:exported="false" />
 
-        <!-- 🛒 Cart screen -->
+
         <activity
             android:name=".CartActivity"
             android:exported="false" />
 
-        <!-- ✅ New Checkout screen -->
+
         <activity
             android:name=".CheckoutActivity"
             android:exported="false" />
